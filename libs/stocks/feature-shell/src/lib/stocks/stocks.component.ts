@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PriceQueryFacade } from '@coding-challenge/stocks/data-access-price-query';
+import { TimePeriod } from './time-period.model';
 
 @Component({
   selector: 'coding-challenge-stocks',
@@ -9,12 +10,9 @@ import { PriceQueryFacade } from '@coding-challenge/stocks/data-access-price-que
 })
 export class StocksComponent implements OnInit {
   stockPickerForm: FormGroup;
-  symbol: string;
-  period: string;
-
   quotes$ = this.priceQuery.priceQueries$;
 
-  timePeriods = [
+  timePeriods: Array<TimePeriod> = [
     { viewValue: 'All available data', value: 'max' },
     { viewValue: 'Five years', value: '5y' },
     { viewValue: 'Two years', value: '2y' },
@@ -32,7 +30,8 @@ export class StocksComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   fetchQuote() {
     if (this.stockPickerForm.valid) {
