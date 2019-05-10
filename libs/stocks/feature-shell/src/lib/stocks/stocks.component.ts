@@ -11,6 +11,8 @@ import { TimePeriod } from './time-period.model';
 export class StocksComponent implements OnInit {
   stockPickerForm: FormGroup;
   quotes$ = this.priceQuery.priceQueries$;
+  endDate = new Date();
+  startDate = new Date();
 
   timePeriods: Array<TimePeriod> = [
     { viewValue: 'All available data', value: 'max' },
@@ -26,19 +28,35 @@ export class StocksComponent implements OnInit {
   constructor(private fb: FormBuilder, private priceQuery: PriceQueryFacade) {
     this.stockPickerForm = fb.group({
       symbol: [null, Validators.required],
-      period: [null, Validators.required]
+      periodStart: [null, Validators.required],
+      periodEnd: [null, Validators.required]
     });
   }
 
   ngOnInit() {
+    this.stockPickerForm.get('periodStart').valueChanges
+      .subscribe((periodStartValue) => {
+
+        if (periodStartValue) {
+          if (
+            this.stockPickerForm.controls['periodEnd'].value &&
+            this.stockPickerForm.controls['periodEnd'].value < periodStartValue
+          ) {
+            this.stockPickerForm.controls['periodEnd'].setValue(periodStartValue);
+          }
+          this.startDate = periodStartValue;
+
+        }
+      });
+
     this.stockPickerForm.valueChanges
-    .subscribe(this.fetchQuote);
+      .subscribe(this.fetchQuote);
   }
 
   fetchQuote = () => {
     if (this.stockPickerForm.valid) {
-      const { symbol, period } = this.stockPickerForm.value;
-      this.priceQuery.fetchQuote(symbol, period);
+      const { symbol, periodStart, periodEnd } = this.stockPickerForm.value;
+      this.priceQuery.fetchQuote(symbol, { startDate: periodStart, endDate: periodEnd });
     }
   }
 }

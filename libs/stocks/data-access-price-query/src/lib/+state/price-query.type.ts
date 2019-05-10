@@ -29,3 +29,8 @@ export type PriceQueryResponse = {
   label: string;
   changeOverTime: number;
 };
+
+export type PriceDateRange = {
+  startDate: string;
+  endDate: string;
+}

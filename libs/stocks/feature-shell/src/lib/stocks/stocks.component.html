@@ -18,15 +18,28 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>Favorite time period</mat-label>
-    <mat-select formControlName="period">
-      <mat-option
-        *ngFor="let timePeriod of timePeriods"
-        [value]="timePeriod.value"
-      >
-        {{ timePeriod.viewValue }}
-      </mat-option>
-    </mat-select>
+    <input matInput formControlName="periodStart" [matDatepicker]="pickerFrom" [max]="startDate"
+      placeholder="Choose start date">
+    <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+    <mat-datepicker #pickerFrom></mat-datepicker>
+    <mat-error>
+      <span *ngIf="!stockPickerForm.get('periodStart').valid && stockPickerForm.get('periodStart').touched">
+        Please enter a valid start date
+      </span>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="periodEnd" [matDatepicker]="pickerTo" [min]="startDate" [max]="endDate"
+      placeholder="Choose end date">
+    <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+    <mat-datepicker #pickerTo></mat-datepicker>
+    <mat-error>
+      <span *ngIf="!stockPickerForm.get('periodEnd').valid && stockPickerForm.get('periodEnd').touched">
+        Please enter a valid end date
+      </span>
+    </mat-error>
+
   </mat-form-field>
 </form>
 
