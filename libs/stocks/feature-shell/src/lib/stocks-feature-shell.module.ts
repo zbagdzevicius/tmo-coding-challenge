@@ -6,7 +6,8 @@ import {
   MatSelectModule,
   MatButtonModule,
   MatNativeDateModule,
-  MatDatepickerModule
+  MatDatepickerModule,
+  MatGridListModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { SharedUiChartModule } from '@coding-challenge/shared/ui/chart';
@@ -26,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatGridListModule,
     SharedUiChartModule
   ],
   declarations: [StocksComponent]

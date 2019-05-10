@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "serve:stocks": "ng serve stocks",
+    "serve:stocks": "ng serve stocks --poll=2000 --proxy-config apps/stocks/proxy.conf.json",
     "serve:stocks-api": "ng run stocks-api:serve",
     "build": "ng build",
     "test": "ng test",
@@ -42,6 +42,7 @@
     "@angular/platform-browser-dynamic": "^7.0.0",
     "@angular/platform-server": "^7.0.0",
     "@angular/router": "^7.0.0",
+    "@hapi/h2o2": "^8.3.0",
     "@nestjs/common": "5.5.0",
     "@nestjs/core": "5.5.0",
     "@ngrx/effects": "^7.4.0",

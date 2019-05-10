@@ -18,16 +18,18 @@ import { PriceQueryResponse } from './price-query.type';
 
 @Injectable()
 export class PriceQueryEffects {
+
+
+
   @Effect() loadPriceQuery$ = this.dataPersistence.fetch(
     PriceQueryActionTypes.FetchPriceQuery,
     {
       run: (action: FetchPriceQuery, state: PriceQueryPartialState) => {
+        const callUrl = (this.env.isProxySet) ? `api/beta/stock/${action.symbol}/chart/${
+          action.period}` : `${this.env.apiURL}/beta/stock/${action.symbol}/chart/${
+          action.period}?token=${this.env.apiKey}`
         return this.httpClient
-          .get(
-            `${this.env.apiURL}/beta/stock/${action.symbol}/chart/${
-              action.period
-            }?token=${this.env.apiKey}`
-          )
+          .get(callUrl)
           .pipe(
             map(resp => new PriceQueryFetched(resp as PriceQueryResponse[]))
           );
@@ -43,5 +45,5 @@ export class PriceQueryEffects {
     @Inject(StocksAppConfigToken) private env: StocksAppConfig,
     private httpClient: HttpClient,
     private dataPersistence: DataPersistence<PriceQueryPartialState>
-  ) {}
+  ) { }
 }

@@ -1,46 +1,57 @@
 <form [formGroup]="stockPickerForm">
-  <mat-form-field>
-    <input
-      matInput
-      placeholder="Symbol e.g AAPL"
-      formControlName="symbol"
-      value=""
-    />
-    <mat-error>
-      <span
-        *ngIf="
-          !stockPickerForm.get('symbol').valid &&
-          stockPickerForm.get('symbol').touched
-        "
-        >Please enter a symbol</span
-      >
-    </mat-error>
-  </mat-form-field>
+  <mat-grid-list cols=2 rows=6 rowHeight="100px">
+    <mat-grid-tile [colspan]=2 [rowspan]=1>
+      <mat-form-field>
+        <input matInput placeholder="Symbol (e.g AAPL)" formControlName="symbol" value="" />
+        <mat-error>
+          <span *ngIf="
+            !stockPickerForm.get('symbol').valid &&
+            stockPickerForm.get('symbol').touched
+          ">Please enter a symbol</span>
+        </mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]=1 [rowspan]=1>
 
-  <mat-form-field>
-    <input matInput formControlName="periodStart" [matDatepicker]="pickerFrom" [max]="startDate"
-      placeholder="Choose start date">
-    <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
-    <mat-datepicker #pickerFrom></mat-datepicker>
-    <mat-error>
-      <span *ngIf="!stockPickerForm.get('periodStart').valid && stockPickerForm.get('periodStart').touched">
-        Please enter a valid start date
-      </span>
-    </mat-error>
-  </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="periodStart" [matDatepicker]="pickerFrom" [max]="startDate"
+          placeholder="Type date (e.g 5/2/2019) or choose in datepicker">
+        <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFrom></mat-datepicker>
+        <mat-error>
+          <span *ngIf="
+          !stockPickerForm.get('periodStart').valid &&
+          stockPickerForm.get('periodStart').touched
+          ">
+            Please enter a valid start date
+          </span>
+        </mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
 
-  <mat-form-field>
-    <input matInput formControlName="periodEnd" [matDatepicker]="pickerTo" [min]="startDate" [max]="endDate"
-      placeholder="Choose end date">
-    <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
-    <mat-datepicker #pickerTo></mat-datepicker>
-    <mat-error>
-      <span *ngIf="!stockPickerForm.get('periodEnd').valid && stockPickerForm.get('periodEnd').touched">
-        Please enter a valid end date
-      </span>
-    </mat-error>
+    <mat-grid-tile [colspan]=1 [rowspan]=1>
+      <mat-form-field>
+        <input matInput formControlName="periodEnd" [matDatepicker]="pickerTo" [min]="startDate" [max]="endDate"
+          placeholder="Choose end date">
+        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
+        <mat-error>
+          <span *ngIf="
+          !stockPickerForm.get('periodEnd').valid &&
+          stockPickerForm.get('periodEnd').touched
+          ">
+            Please enter a valid end date
+          </span>
+        </mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]=2 [rowspan]=4>
+      <coding-challenge-chart [data$]="quotes$"></coding-challenge-chart>
+    </mat-grid-tile>
 
-  </mat-form-field>
+  </mat-grid-list>
+
+
+
+
 </form>
-
-<coding-challenge-chart [data$]="quotes$"></coding-challenge-chart>

@@ -36,7 +36,6 @@ export class StocksComponent implements OnInit {
   ngOnInit() {
     this.stockPickerForm.get('periodStart').valueChanges
       .subscribe((periodStartValue) => {
-
         if (periodStartValue) {
           if (
             this.stockPickerForm.controls['periodEnd'].value &&
