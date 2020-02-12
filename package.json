@@ -42,7 +42,7 @@
     "@angular/platform-browser-dynamic": "^7.0.0",
     "@angular/platform-server": "^7.0.0",
     "@angular/router": "^7.0.0",
-    "@hapi/h2o2": "^8.3.0",
+    "@hapi/h2o2": "^8.3.1",
     "@nestjs/common": "5.5.0",
     "@nestjs/core": "5.5.0",
     "@ngrx/effects": "^7.4.0",
